@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import './SavedData.css'
+import "./SavedData.css";
 
 const SavedData = () => {
   const [data, setData] = useState([]);
-  const [editingUser, setEditingUser] = useState(null); // State to store the user being edited
+  const [editingUser, setEditingUser] = useState(null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -18,7 +18,6 @@ const SavedData = () => {
     cardholderName: "",
   });
 
-  // Fetch data from the API
   const fetchData = async () => {
     let response = await fetch("http://localhost:3001/users", {
       method: "GET",
@@ -30,26 +29,29 @@ const SavedData = () => {
     setData(jsonData);
   };
 
-  // Fetch data when component mounts
   useEffect(() => {
     fetchData();
   }, []);
 
-  // Handle delete user
-  const handleDelete = async (id) => {
-    await fetch(`http://localhost:3001/users/${id}`, {
-      method: "DELETE",
-    });
-    setData(data.filter((user) => user._id !== id)); // Remove the user from the state
+  const handleDelete = async (userId, index) => {
+    console.log(userId);
+    try {
+      const response = await fetch(`http://localhost:3001/users/${userId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.ok) {
+        const updatedData = data.filter((_, i) => i !== index);
+        setData(updatedData);
+      } else {
+        console.error("Failed to delete user");
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
   };
 
-  // Handle editing user
-  const handleEdit = (user) => {
-    setEditingUser(user._id); // Set the user being edited
-    setFormData(user); // Pre-fill the form with the user's data
-  };
-
-  // Handle form field change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -82,7 +84,7 @@ const SavedData = () => {
       cvv: "",
       cardholderName: "",
     });
-    fetchData(); 
+    fetchData();
   };
 
   return (
@@ -181,10 +183,7 @@ const SavedData = () => {
             />
             <br />
             <button type="submit">Update User</button>
-            <button
-              type="button"
-              onClick={() => setEditingUser(null)}
-            >
+            <button type="button" onClick={() => setEditingUser(null)}>
               Cancel
             </button>
           </form>
@@ -209,7 +208,7 @@ const SavedData = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
+          {data.map((item, index) => (
             <tr key={item._id}>
               <td>{item.firstName}</td>
               <td>{item.lastName}</td>
@@ -223,8 +222,27 @@ const SavedData = () => {
               <td>{item.cvv}</td>
               <td>{item.cardholderName}</td>
               <td>
-                <button onClick={() => handleEdit(item)}>Edit</button>
-                <button onClick={() => handleDelete(item._id)}>Delete</button>
+                <button
+                  onClick={() => {
+                    setEditingUser(item.id);
+                    setFormData(item);
+                  }}
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "Are you sure you want to delete this user?"
+                      )
+                    ) {
+                      handleDelete(item.id, index);
+                    }
+                  }}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

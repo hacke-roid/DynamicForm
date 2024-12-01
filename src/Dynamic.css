@@ -1,0 +1,172 @@
+/* General container settings */
+.container {
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  /* Header and Footer */
+  header, footer {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  /* Form layout */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Form group styling */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  /* Label styling */
+  label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  /* Input fields and select styling */
+  input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Error message styling */
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Progress bar styling */
+  .progress-container {
+    margin: 20px 0;
+    height: 5px;
+    background-color: #ddd;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: green;
+  }
+  
+  /* Submit button styling */
+  button {
+    /* padding: 10px 20px; */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+
+  .submitted-data{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  /* Table for submitted data */
+  .submitted-data table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .submitted-data table, th, td {
+    border: 1px solid black;
+  }
+  
+  .submitted-data th, td {
+    padding: 8px;
+    text-align: left;
+  }
+
+  .link-btn{
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .link-btn a{
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .container {
+      width: 90%;
+    }
+  
+    /* Adjust form layout for smaller screens */
+    form {
+      padding: 10px;
+    }
+  
+    /* Adjust the submit button */
+    button {
+      width: 100%;
+      padding: 15px;
+    }
+  
+    /* Increase input field size for mobile */
+    input, select {
+      padding: 12px;
+    }
+  
+    /* Table responsiveness */
+    .submitted-data table {
+      font-size: 14px;
+    }
+  }
+  
+  /* Extra small mobile screens */
+  @media (max-width: 480px) {
+    .container {
+      width: 100%;
+    }
+  
+    form {
+      padding: 5px;
+    }
+  
+    .form-group {
+      margin-bottom: 10px;
+    }
+  
+    input, select {
+      padding: 10px;
+      font-size: 14px;
+    }
+  
+    .error {
+      font-size: 10px;
+    }
+  
+    button {
+      padding: 12px;
+      font-size: 14px;
+    }
+  
+    .submitted-data table th, .submitted-data table td {
+      font-size: 12px;
+    }
+  }
+  
