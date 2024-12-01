@@ -1,0 +1,150 @@
+/* General Styles */
+
+  /* Table Styles */
+  table {
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px auto;
+    border-collapse: collapse;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+  }
+  
+  th, td {
+    padding: 15px;
+    text-align: left;
+    font-size: 14px;
+    color: #333333;
+  }
+  
+  th {
+    background-color: #3498db;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  td {
+    border-bottom: 1px solid #f2f2f2;
+  }
+  
+  /* Hover Effects for Table Rows */
+  tbody tr:hover {
+    background-color: #f7f7f7;
+  }
+  
+  /* Button Styles */
+  button {
+    padding: 8px 15px;
+    margin: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  button.edit {
+    background-color: #f39c12;
+    color: #fff;
+  }
+  
+  button.edit:hover {
+    background-color: #e67e22;
+  }
+  
+  button.delete {
+    background-color: #e74c3c;
+    color: #fff;
+  }
+  
+  button.delete:hover {
+    background-color: #c0392b;
+  }
+  
+  /* Edit Form Styles */
+  form {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  form label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  form input[type="date"] {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  form button[type="submit"] {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  form button[type="submit"]:hover {
+    background-color: #2980b9;
+  }
+  
+  form button[type="button"] {
+    background-color: #7f8c8d;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  form button[type="button"]:hover {
+    background-color: #95a5a6;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    table {
+      width: 90%;
+      font-size: 12px;
+    }
+  
+    form {
+      width: 90%;
+      font-size: 14px;
+    }
+  
+    button {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+  }
+  
