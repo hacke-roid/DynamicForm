@@ -109,36 +109,30 @@
     height: 100%;
   }
   
-  /* Mobile responsiveness */
   @media (max-width: 768px) {
     .container {
       width: 90%;
     }
   
-    /* Adjust form layout for smaller screens */
     form {
       padding: 10px;
     }
   
-    /* Adjust the submit button */
     button {
       width: 100%;
       padding: 15px;
     }
   
-    /* Increase input field size for mobile */
     input, select {
       padding: 12px;
     }
   
-    /* Table responsiveness */
     .submitted-data table {
       font-size: 14px;
     }
   }
   
-  /* Extra small mobile screens */
-  @media (max-width: 480px) {
+  /* @media (max-width: 480px) {
     .container {
       width: 100%;
     }
@@ -167,6 +161,6 @@
   
     .submitted-data table th, .submitted-data table td {
       font-size: 12px;
-    }
-  }
+    } */
+  /* } */
   
