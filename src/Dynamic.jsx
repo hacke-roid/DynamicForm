@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Dynamic.css";
 import { Link } from "react-router-dom";
+import STATES from "./States.json";
 
 const DynamicForm = () => {
+  const [states, setSatates] = useState(STATES);
   const [formType, setFormType] = useState("");
   const [formFields, setFormFields] = useState([]);
   const [formData, setFormData] = useState({
@@ -21,6 +23,7 @@ const DynamicForm = () => {
   const [errors, setErrors] = useState({});
   const [progress, setProgress] = useState(0);
   const [editingUser, setEditingUser] = useState(false);
+  const [inputText, setInputText] = useState(false);
   //   console.log(formData);
   const handleFormChange = (e) => {
     setFormType(e.target.value);
@@ -40,6 +43,7 @@ const DynamicForm = () => {
     cardholderName,
   } = formData;
 
+  //   console.log(states.states);
   const apiResponses = {
     userInformation: {
       fields: [
@@ -61,7 +65,7 @@ const DynamicForm = () => {
           name: "state",
           type: "dropdown",
           label: "State",
-          options: ["California", "Texas", "New York"],
+          options: STATES.states.map((item) => item.state),
           required: true,
         },
         { name: "zipCode", type: "text", label: "Zip Code", required: false },
@@ -77,7 +81,7 @@ const DynamicForm = () => {
         },
         {
           name: "expiryDate",
-          type: "date",
+          type: "month",
           label: "Expiry Date",
           required: true,
         },
@@ -92,6 +96,8 @@ const DynamicForm = () => {
     },
   };
 
+  //   console.log(apiResponses.addressInformation.fields[2]);
+
   const handleFieldChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -99,6 +105,34 @@ const DynamicForm = () => {
       [name]: value,
     }));
     validateField(name, value);
+
+    if (value === "") {
+      setInputText(true);
+    }
+
+    // if(name === "cvv" && value.length >3 || value.length <3 ){
+    //     setErrors((prevError)=>({
+    //         ...prevError, [name]: "CVV must be 3 digits",
+    //     }))
+    //   } else {
+    //     console.log("hii")
+    // }
+    if (name === "cvv") {
+        if (!/^\d{3}$/.test(value)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "CVV must be exactly 3 digits.",
+          }));
+        } else {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: "",
+          }));
+        }
+      } else {
+        validateField(name, value);
+      }
+    
   };
 
   const validateField = (name, value) => {
@@ -171,8 +205,8 @@ const DynamicForm = () => {
   const handleUpdatedForm = (e) => {
     console.log("hii");
     e.preventDefault();
-    console.log(formData)
-    setEditingUser(false); 
+    console.log(formData);
+    setEditingUser(false);
   };
 
   return (
@@ -180,57 +214,6 @@ const DynamicForm = () => {
       <header>
         <h1>Dynamic Form</h1>
       </header>
-
-      {/* <div>
-          <label htmlFor="formType">Select Form Type</label>
-          <select id="formType" onChange={handleFormChange} value={formType}>
-            <option value="">Select...</option>
-            <option value="userInformation">User Information</option>
-            <option value="addressInformation">Address Information</option>
-            <option value="paymentInformation">Payment Information</option>
-          </select>
-        </div>
-
-        {formFields.length > 0 && (
-          <div>
-            {formFields.map((field) => (
-              <div key={field.name} className="form-group">
-                <label htmlFor={field.name}>{field.label}</label>
-                {field.type === "dropdown" ? (
-                  <select
-                    name={field.name}
-                    id={field.name}
-                    onChange={handleFieldChange}
-                    value={formData[field.name] || ""}
-                  >
-                    <option value="">Select {field.label}</option>
-                    {field.options.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <input
-                    type={field.type}
-                    name={field.name}
-                    id={field.name}
-                    onChange={handleFieldChange}
-                    value={formData[field.name] || ""}
-                    required={field.required}
-                  />
-                )}
-                {errors[field.name] && (
-                  <span className="error">{errors[field.name]}</span>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-
-        <div className="progress-container">
-          <div className="progress-bar" style={{ width: `${progress}%` }}></div>
-        </div> */}
       {editingUser ? (
         <div>
           <h3>Edit User</h3>
@@ -359,8 +342,8 @@ const DynamicForm = () => {
                     value={formData[field.name] || ""}
                   >
                     <option value="">Select {field.label}</option>
-                    {field.options.map((option) => (
-                      <option key={option} value={option}>
+                    {field.options.map((option, index) => (
+                      <option key={index} value={option}>
                         {option}
                       </option>
                     ))}
@@ -375,6 +358,11 @@ const DynamicForm = () => {
                     required={field.required}
                   />
                 )}
+                {inputText ? (
+                  <small style={{ color: "red" }}>{errors[field.name]}</small>
+                ) : (
+                  <small>{field.errorText}</small>
+                )}
               </div>
             ))}
             <div className="progress-container">
@@ -388,10 +376,9 @@ const DynamicForm = () => {
         </>
       )}
       <div className="edit-btn">
-      <button onClick={handleEditClick}>Edit</button>
+        <button onClick={handleEditClick}>Edit</button>
       </div>
       <div className="link-btn">
-      
         <Link to="/saved-data">Saved Data</Link>
       </div>
       {Object.keys(formData).length > 0 && (

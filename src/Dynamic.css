@@ -100,7 +100,7 @@
   }
 
   .edit-btn{
-    border: 2px solid black;
+    /* border: 2px solid black; */
     /* padding: 10px 20px; */
     background-color: #4CAF50;
     color: white;
@@ -112,9 +112,9 @@
   }
 
   .edit-btn button{
-    width: 100%;
+    width: 90%;
     height: 100%;
-    /* padding: 10px 20px; */
+    padding: 10px 20px;
   }
   
   @media (max-width: 768px) {

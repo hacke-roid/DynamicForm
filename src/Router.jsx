@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import DynamicForm from './DynamicForm'
+// import DynamicForm from './DynamicForm'
 import Dynamic from './Dynamic'
 import SavedData from './SavedData'
 
